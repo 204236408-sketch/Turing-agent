@@ -1,3 +1,16 @@
+"""
+学习报告接口（半成品需要深化）
+
+功能：
+- GET /api/reports/overview    — 获取报告概览（统计数据、四科趋势、推荐计划、记忆权重、用户画像标签）
+- GET /api/reports/summary     — 获取最新报告摘要
+- POST /api/reports/generate   — 生成新学习报告（调用 report_agent）
+- GET  /api/reports/history    — 历史报告列表
+- GET  /api/reports/{id}       — 获取特定报告详情
+
+状态：半成品需要深化。报告生成与概览逻辑较完整，但计算逻辑复杂（趋势分、记忆权重、画像标签），
+      缺乏报告对比、导出、可视化数据接口。
+"""
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from agents.report_agent import generate_report, report_to_dict

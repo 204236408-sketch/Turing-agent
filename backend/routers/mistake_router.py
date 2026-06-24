@@ -1,3 +1,17 @@
+"""
+错题本接口（半成品需要深化）
+
+功能：
+- GET  /api/mistakes                  — 错题列表（含关联题目与 OCR 还原）
+- GET  /api/mistakes/notebook         — 错题本（按掌握状态筛选，含详细字段）
+- GET  /api/mistakes/{id}             — 错题详情
+- POST /api/mistakes/cause-confirm    — 确认错题原因（调用 mistake_agent）
+- POST /api/mistakes/retrain          — 生成同类训练建议（当前为桩，返回固定值）
+- POST /api/mistakes/{id}/mastery     — 设置错题掌握状态
+
+状态：半成品需要深化。错题列表/本/详情结构良好，cause-confirm 有 Agent 支撑；
+      retrain 接口仅返回固定 mock 值，detail 返回字段偏少，缺少错题统计分析接口。
+"""
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from agents.mistake_agent import confirm_cause

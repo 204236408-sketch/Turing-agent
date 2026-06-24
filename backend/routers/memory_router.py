@@ -1,3 +1,18 @@
+"""
+长期记忆接口（半成品需要深化）
+
+功能：
+- GET  /api/memory/profile          — 获取用户长期学习画像（所有 active 记忆拼接）
+- GET  /api/memory/list             — 获取全部记忆条目列表
+- GET  /api/memory/weak-points      — 获取薄弱点类型的记忆
+- GET  /api/memory/by-knowledge     — 按知识点查询记忆
+- POST /api/memory/update           — 创建/更新记忆条目
+- POST /api/memory/resolve/{id}     — 标记记忆为已解决
+- POST /api/memory/semantic-search  — 语义搜索记忆（调用 RAG 服务）
+
+状态：半成品需要深化。CRUD 基础功能完整；语义搜索依赖 rag_service 的质量，
+      缺少记忆合并/去重机制，update 接口实为追加而非更新。
+"""
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from database import get_db

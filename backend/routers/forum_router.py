@@ -1,3 +1,27 @@
+"""
+论坛社区接口（半成品需要深化）
+
+功能：
+- GET    /api/forum/categories               — 获取论坛分类列表
+- GET    /api/forum/posts                    — 搜索/筛选帖子列表
+- POST   /api/forum/posts                    — 创建帖子
+- GET    /api/forum/posts/{id}               — 帖子详情
+- PUT    /api/forum/posts/{id}               — 更新帖子（仅作者）
+- DELETE /api/forum/posts/{id}               — 删除帖子（软删除）
+- POST   /api/forum/posts/{id}/like          — 点赞
+- POST   /api/forum/posts/{id}/unlike        — 取消点赞
+- GET    /api/forum/posts/{id}/comments      — 获取评论列表
+- POST   /api/forum/posts/{id}/comments      — 添加评论
+- POST   /api/forum/comments/{id}/reply      — 回复评论
+- POST   /api/forum/posts/{id}/ai-answer     — AI 回答帖子
+- POST   /api/forum/posts/{id}/ai-followup   — AI 追问回答
+- GET    /api/forum/hot                      — 热门帖子（按热度排序）
+- GET    /api/forum/checkin/status           — 打卡状态
+- POST   /api/forum/checkin                  — 执行打卡
+- GET    /api/forum/my-posts                 — 我的帖子列表
+
+状态：半成品需要深化。CRUD 完整，AI 回答/追问有基本实现；无分页，AI 追问仅用简单提示词 + fallback。
+"""
 from datetime import datetime, timedelta
 
 from fastapi import APIRouter, Depends, Query
@@ -44,7 +68,6 @@ def post_to_dict(post: ForumPost, user: User | None = None) -> dict:
         "title": post.title,
         "content": post.content,
         "like_count": post.like_count,
-        "collect_count": post.collect_count,
         "comment_count": post.comment_count,
         "is_top": post.is_top,
         "is_hot": is_hot,
@@ -178,16 +201,6 @@ def unlike(
     row.like_count = max(0, row.like_count - 1)
     db.commit()
     return success({"like_count": row.like_count})
-
-
-@router.post("/posts/{post_id}/collect")
-def collect(post_id: int, db: Session = Depends(get_db)):
-    row = db.query(ForumPost).filter(ForumPost.id == post_id).first()
-    if not row:
-        raise AppError("POST_NOT_FOUND", "帖子不存在", status_code=404)
-    row.collect_count += 1
-    db.commit()
-    return success({"collect_count": row.collect_count})
 
 
 @router.get("/posts/{post_id}/comments")
@@ -427,6 +440,4 @@ def my_posts(
     return success({"items": [post_to_dict(p, user) for p in rows]})
 
 
-@router.get("/my-collections")
-def my_collections():
-    return success({"items": []})
+

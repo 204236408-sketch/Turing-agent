@@ -1,3 +1,21 @@
+"""
+题目管理接口（半成品需要深化）
+
+功能：
+- POST /api/questions/generate              — 手动指定参数生成题目
+- GET  /api/questions/recommendations        — 获取智能推荐题目列表
+- POST /api/questions/generate-smart         — 按推荐模式智能生成题目
+- GET  /api/questions/session/{id}           — 获取出题批次的详情
+- GET  /api/questions/detail/{id}            — 题目详情
+- GET  /api/questions/{id}/hints             — 获取题目提示
+- GET  /api/questions/{id}/videos            — 获取推荐视频
+- POST /api/questions/{id}/mastery           — 针对某题设置掌握状态
+- POST /api/questions/mastery                — 通用设置掌握状态
+- POST /api/questions/{id}/interaction       — 记录题目交互（空实现）
+
+状态：半成品需要深化。出题、推荐、掌握度功能完整；交互接口为空实现，
+      缺少题目编辑、删除、批量操作等功能。
+"""
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from agents.question_agent import generate_questions
@@ -92,11 +110,6 @@ def mastery(payload: MasteryFeedbackRequest, db: Session = Depends(get_db), user
     item = apply_manual_feedback(db, user.id, payload.subject, payload.knowledge_point, payload.status, payload.mistake_id, payload.question_id)
     db.commit()
     return success({"status": item.final_status, "weak_score": item.weak_score})
-
-
-@router.post("/{question_id}/collect")
-def collect(question_id: int):
-    return success({"question_id": question_id, "collected": True})
 
 
 @router.post("/{question_id}/interaction")

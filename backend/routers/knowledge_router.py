@@ -1,3 +1,13 @@
+"""
+知识点接口（已完成可复用）
+
+功能：
+- GET /api/knowledge/graph           — 获取全量知识图谱（按科目分组，含知识点级别、高频标记）
+- GET /api/knowledge/high-frequency  — 获取高频考点列表
+- GET /api/knowledge/recommend       — 获取智能推荐知识点列表
+
+状态：已完成可复用。查询逻辑简单清晰，推荐逻辑委托 recommendation_service 实现。
+"""
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database import get_db

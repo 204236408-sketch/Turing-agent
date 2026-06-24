@@ -1,3 +1,14 @@
+"""
+认证接口（已完成可复用）
+
+功能：
+- POST /api/auth/register — 用户注册，返回用户信息与 JWT token
+- POST /api/auth/login    — 用户登录（支持用户名/邮箱），返回 token
+- GET  /api/auth/me       — 获取当前登录用户信息
+- POST /api/auth/logout   — 登出（标记清除）
+
+状态：已完成可复用。认证逻辑完整，JWT token 签发与验证均在 auth 模块中实现。
+"""
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from auth import authenticate_user, register_user, token_for_user

@@ -1,3 +1,14 @@
+"""
+视频资源接口（Mock/占位接口）
+
+功能：
+- GET  /api/videos/recommend  — 推荐视频列表（等同于 /list）
+- GET  /api/videos/list       — 视频列表（支持按科目、知识点筛选）
+- POST /api/videos/crawl      — 爬取视频资源（显式 mock，仅返回开发提示）
+
+状态：Mock/占位接口。视频列表读取本地数据库，爬虫接口显式声明为 mock；
+      缺少视频上传、播放进度追踪等真正功能。
+"""
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database import get_db
@@ -25,6 +36,3 @@ def crawl():
     return success({"message": "开发版不爬取外站，已返回本地视频元数据。"})
 
 
-@router.post("/view/{video_id}")
-def view(video_id: int):
-    return success({"video_id": video_id, "viewed": True})

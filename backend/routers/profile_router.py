@@ -1,3 +1,12 @@
+"""
+用户画像接口（已完成可复用）
+
+功能：
+- GET /api/profile/overview — 获取用户画像概览（基本信息 + 学习统计：答题数、正确率、掌握/薄弱数）
+- PUT /api/profile/update   — 更新用户画像（昵称、每日学习时长、学习阶段、目标日期）
+
+状态：已完成可复用。逻辑简单清晰，字段齐全。
+"""
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database import get_db

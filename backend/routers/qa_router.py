@@ -1,3 +1,13 @@
+"""
+问答聊天接口（半成品需要深化）
+
+功能：
+- POST /api/qa/chat    — 发起问答对话（创建/追加会话 → 调用 qa_agent → 更新掌握度）
+- GET  /api/qa/history — 获取问答历史会话列表
+
+状态：半成品需要深化。基本问答流程可用，但功能较简单：无流式响应、无上下文管理优化、
+      无会话删除功能、无消息删除/编辑支持。
+"""
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from agents.qa_agent import answer_question

@@ -1,3 +1,19 @@
+"""
+首页大盘接口（半成品需要深化）
+
+功能：
+- GET /api/home/overview — 获取首页大屏数据，包含：
+  · today_plan：今日学习计划（优先攻克知识点）
+  · countdown：考研倒计时
+  · recommendations：智能推荐列表
+  · stats：本周答题数、正确率、薄弱点统计
+  · knowledge_graph：四科知识图谱（含掌握状态着色）
+  · memories：长期记忆摘要
+  · initial_state：新用户初始引导状态
+
+状态：半成品需要深化。业务逻辑较完整，但存在大量硬编码回退值（操作系统/页面置换算法），
+      乱码清理表不全面，知识点状态计算逻辑需要验证。
+"""
 from __future__ import annotations
 
 from datetime import date, datetime, time, timedelta

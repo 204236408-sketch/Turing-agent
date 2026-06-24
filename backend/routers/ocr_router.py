@@ -1,3 +1,13 @@
+"""
+OCR 识别接口（Mock/占位接口）
+
+功能：
+- POST /api/ocr/upload   — 上传图片进行 OCR 识别（委托 ocr_service）
+- POST /api/ocr/analyze  — 分析 OCR 识别文本（调用 mistake_agent 做错题分析）
+
+状态：Mock/占位接口。upload 依赖外部 OCR 服务（save_and_recognize_upload 需第三方 API），
+      analyze 复用 mistake_agent 逻辑。本地开发环境需要至少一个可用 OCR API 才能正常工作。
+"""
 from fastapi import APIRouter, Depends, File, UploadFile
 from sqlalchemy.orm import Session
 from agents.mistake_agent import analyze_ocr_text

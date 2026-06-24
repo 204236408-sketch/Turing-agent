@@ -1,3 +1,15 @@
+"""
+掌握度追踪接口（半成品需要深化）
+
+功能：
+- GET /api/mastery/list         — 获取所有知识点掌握度（自动同步后返回）
+- GET /api/mastery/detail       — 查询特定知识点掌握度详情
+- POST /api/mastery/recalculate — 重算特定知识点的掌握度
+- GET /api/mastery/summary      — 掌握度汇总统计（各状态数量）
+
+状态：半成品需要深化。CRUD 存在但 detail/recalculate 有硬编码默认参数（操作系统/页面置换算法），
+      掌握度五态分类逻辑在 mastery_service 中需要进一步验证合理性。
+"""
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from database import get_db

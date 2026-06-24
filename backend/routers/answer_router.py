@@ -1,3 +1,12 @@
+"""
+答案批改接口（已完成可复用）
+
+功能：
+- POST /api/answers/check   — 提交用户作答，调用 answer_check_agent 进行 AI 批改与反馈
+- GET  /api/answers/history — 获取当前用户最近 100 条答题记录
+
+状态：已完成可复用。核心流程完整，Agent 批改逻辑在 answer_check_agent 中实现。
+"""
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from agents.answer_check_agent import check_answer
